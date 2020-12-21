@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@aws-cdk/assert@^1.73.0":
+"@aws-cdk/assert@^1.79.0":
   version "1.79.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/assert/-/assert-1.79.0.tgz#c30e904bff8dbabcc3ca6ee01904da1fc7a980e7"
   integrity sha512-wCiMyxhtUz82blUlSnfoqpHdSjgFOkjpunjgxT2aG5Y6RTN0ExOOm9pdKDdXnul0zml6ZvfOL51wDG0Udg7zFg==
@@ -20,7 +20,7 @@
   dependencies:
     md5 "^2.3.0"
 
-"@aws-cdk/cloud-assembly-schema@1.79.0":
+"@aws-cdk/cloud-assembly-schema@1.79.0", "@aws-cdk/cloud-assembly-schema@^1.79.0":
   version "1.79.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/cloud-assembly-schema/-/cloud-assembly-schema-1.79.0.tgz#e089ed386f47b4e24e12e398b66d1df7894e5109"
   integrity sha512-n2ARtOXIUq3FdJ1EBuHzsM0DQau6ZwHprPhpk1xc5bv21s7D5X5ECe06eC0K5xC5ZyfC13BDWu1f+xFh+krnYA==
@@ -40,7 +40,7 @@
     string-width "^4.2.0"
     table "^6.0.4"
 
-"@aws-cdk/core@1.79.0":
+"@aws-cdk/core@1.79.0", "@aws-cdk/core@^1.79.0":
   version "1.79.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/core/-/core-1.79.0.tgz#164b2f01877259eeb1ba16617be103522ae934d6"
   integrity sha512-I+2GbQfbPy6TewnGbviE1W8cUhgBEA1mQLYm5gBj/Rzix1tCyaNvfYsBU3ipg3jIATpHsg1CzUq0zrumUnmnTg==
