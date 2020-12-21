@@ -51,11 +51,17 @@
     "typescript": "^3.9.5"
   },
   "peerDependencies": {
+    "@aws-cdk/aws-cloudformation": "^1.79.0",
+    "@aws-cdk/aws-iam": "^1.79.0",
+    "@aws-cdk/aws-lambda": "^1.79.0",
     "@aws-cdk/cloud-assembly-schema": "^1.79.0",
     "@aws-cdk/core": "^1.79.0",
     "constructs": "^3.2.27"
   },
   "dependencies": {
+    "@aws-cdk/aws-cloudformation": "^1.79.0",
+    "@aws-cdk/aws-iam": "^1.79.0",
+    "@aws-cdk/aws-lambda": "^1.79.0",
     "@aws-cdk/cloud-assembly-schema": "^1.79.0",
     "@aws-cdk/core": "^1.79.0"
   },
