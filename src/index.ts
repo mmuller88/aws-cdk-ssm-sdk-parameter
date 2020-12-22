@@ -1,67 +1,90 @@
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-import path = require('path');
-import * as cfn from '@aws-cdk/aws-cloudformation';
-import * as iam from '@aws-cdk/aws-iam';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as cxschema from '@aws-cdk/cloud-assembly-schema';
 import * as cdk from '@aws-cdk/core';
+import * as custom from '@aws-cdk/custom-resources';
 
-export interface StringParameterSDKProps {
-  name: string;
-  defaultValue: string;
+export interface SSMParameterProps {
+  parameterName: string;
+  /**
+   * if the parameter couldn't be found that will be the default value
+   */
+  defaultValue?: string;
+  /**
+   * The SSM Parameter type. SecureString is atm not supported
+   */
+  type?: SSMParameterType;
 }
 
-export class StringParameterSDK extends cdk.Construct {
+/**
+ * The SSM Parameter type. SecureString is atm not supported
+ */
+export enum SSMParameterType {
+  String, StringList,
+}
+
+export class SSMParameter extends cdk.Construct {
 
   /**
-   * Reads the value of an SSM parameter during synthesis through an
-   * environmental context provider.
-   *
-   * Requires that the stack this scope is defined in will have explicit
-   * account/region information. Otherwise, it will fail during synthesis.
+   * the returned parameter for the SSM Parameter
    */
-  public static valueFromLookup(scope: cdk.Construct, parameterName: string): string {
-    const value = cdk.ContextProvider.getValue(scope, {
-      provider: cxschema.ContextProvider.SSM_PARAMETER_PROVIDER,
-      props: { parameterName },
-      dummyValue: `dummy-value-for-${parameterName}`,
-    }).value;
+  readonly parameterValue: string;
+  readonly parameterName: string;
 
-    return value;
-  }
-
-  constructor(parent: cdk.Stack, name: string, props: StringParameterSDKProps) {
+  constructor(parent: cdk.Stack, name: string, props: SSMParameterProps) {
     super(parent, name);
 
-    const putParamsLambda = new lambda.SingletonFunction(this, 'Singleton', {
-      uuid: 'f7d4f730-4ee1-11e8-9c2d-fa7ae01bbebc',
-      code: lambda.Code.asset(path.join(__dirname, 'lambda')),
-      handler: 'index.handler',
-      timeout: cdk.Duration.seconds(300),
-      runtime: lambda.Runtime.NODEJS_10_X,
+    if (!props.parameterName) {
+      throw new Error('parameterName cannot be an empty string');
+    }
+
+    if (props.parameterName.length > 2048) {
+      throw new Error('Name cannot be longer than 2048 characters.');
+    }
+
+    // if (props.type === SSMParameterType.StringList) {
+    //   if ( props.defaultValue.split(',').find(str => str.indexOf(',') !== -1)) {
+    //     throw new Error('Values of a StringList SSM Parameter cannot contain the \',\' character. Use a string parameter instead.');
+    //   }
+    // }
+
+    this.parameterName = props.parameterName;
+
+    const getParameter = new custom.AwsCustomResource(this, 'GetParameter', {
+      onUpdate: { // will also be called for a CREATE event
+        service: 'SSM',
+        action: 'getParameter',
+        parameters: {
+          Name: props.parameterName,
+          WithDecryption: true,
+        },
+        physicalResourceId: custom.PhysicalResourceId.of(Date.now().toString()), // Update physical id to always fetch the latest version
+      },
+      policy: custom.AwsCustomResourcePolicy.fromSdkCalls({ resources: custom.AwsCustomResourcePolicy.ANY_RESOURCE }),
     });
 
-    const putParamsLambdaPolicy = new iam.PolicyStatement({
-      actions: ['ecr:GetAuthorizationToken',
-        'cloudwatch:PutMetricData',
-        'ds:CreateComputer',
-        'ds:DescribeDirectories',
-        'ec2:DescribeInstanceStatus',
-        'logs:*',
-        'ssm:*',
-        'ec2messages:*'],
-      resources: ['*'],
-    },
-    );
+    // Use the value in another construct with
+    this.parameterValue = getParameter.getResponseField('Parameter.Value');
 
-    putParamsLambda.addToRolePolicy(putParamsLambdaPolicy);
+    if (this.parameterValue !== undefined && this.parameterValue !== null) {
+      new custom.AwsCustomResource(this, 'PutParameter', {
+        onUpdate: {
+          service: 'SSM',
+          action: 'putParameter',
+          parameters: {
+            Name: props.parameterName,
+            Value: props.defaultValue || '',
+            Type: props.type || SSMParameterType.String,
+          },
+          physicalResourceId: custom.PhysicalResourceId.of(Date.now().toString()),
+        },
+        policy: custom.AwsCustomResourcePolicy.fromSdkCalls({ resources: custom.AwsCustomResourcePolicy.ANY_RESOURCE }),
+      });
+    }
 
-    const resource = new cfn.CustomResource(this, 'Resource', {
-      provider: cfn.CustomResourceProvider.lambda(putParamsLambda),
-      properties: props,
+    new cdk.CfnOutput(this, 'SSMParameterValue', {
+      value: this.parameterValue,
     });
-
-    // this.response = resource.getAtt('Version').toString();
+    new cdk.CfnOutput(this, 'SSMParameterName', {
+      value: this.parameterName,
+    });
   }
 
 }

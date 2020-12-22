@@ -13,6 +13,7 @@ const project = new AwsCdkConstructLibrary({
     '@aws-cdk/aws-iam',
     '@aws-cdk/aws-cloudformation',
     '@aws-cdk/aws-lambda',
+    '@aws-cdk/custom-resources',
   ],
 });
 

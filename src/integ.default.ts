@@ -1,5 +1,5 @@
 import * as cdk from '@aws-cdk/core';
-// import { StringParameterSDK } from './index';
+import { ParameterSDK } from './index';
 
 export class IntegTesting {
   readonly stack: cdk.Stack[];
@@ -13,7 +13,10 @@ export class IntegTesting {
 
     const stack = new cdk.Stack(app, 'my-demo-stack', { env });
 
-    // new StringParameterSDK(stack, 'StringParameterSDK');
+    new ParameterSDK(stack, 'SSMParameter', {
+      parameterName: 'foo',
+      defaultValue: 'fooValue',
+    });
 
     this.stack = [stack];
   }
