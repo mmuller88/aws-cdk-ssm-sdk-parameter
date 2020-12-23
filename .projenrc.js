@@ -1,9 +1,10 @@
 const { AwsCdkConstructLibrary } = require('projen');
 
 const project = new AwsCdkConstructLibrary({
-  authorAddress: 'm.mueller@unimed.de',
+  authorAddress: 'damadden88@googlemail.de',
   authorName: 'martin.mueller',
-  cdkVersion: '1.79.0',
+  defaultReleaseBranch: 'main',
+  cdkVersion: '1.80.0',
   releaseBranches: ['main'],
   name: 'aws-cdk-ssm-parameter',
   repository: 'https://github.com/mmuller88/aws-cdk-ssm-parameter',
@@ -15,6 +16,23 @@ const project = new AwsCdkConstructLibrary({
     '@aws-cdk/aws-lambda',
     '@aws-cdk/custom-resources',
   ],
+  keywords: [
+    'cdk',
+    'aws',
+    'ssm',
+    'parameter',
+  ],
+  python: {
+    distName: 'aws-cdk-ssm-parameter',
+    module: 'aws_cdk_ssm_parameter',
+  },
 });
+
+// workaround for https://github.com/projen/projen/issues/356
+project.setScript('deploy', 'cdk deploy');
+
+const common_exclude = ['cdk.out', 'cdk.context.json', 'images', 'yarn-error.log', 'tmp'];
+project.npmignore.exclude(...common_exclude);
+project.gitignore.exclude(...common_exclude);
 
 project.synth();

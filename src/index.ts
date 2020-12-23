@@ -17,7 +17,8 @@ export interface SSMParameterProps {
  * The SSM Parameter type. SecureString is atm not supported
  */
 export enum SSMParameterType {
-  String, StringList,
+  String = 'String',
+  StringList = 'StringList',
 }
 
 export class SSMParameter extends cdk.Construct {
@@ -53,7 +54,6 @@ export class SSMParameter extends cdk.Construct {
         action: 'getParameter',
         parameters: {
           Name: props.parameterName,
-          WithDecryption: true,
         },
         physicalResourceId: custom.PhysicalResourceId.of(Date.now().toString()), // Update physical id to always fetch the latest version
       },
@@ -63,21 +63,21 @@ export class SSMParameter extends cdk.Construct {
     // Use the value in another construct with
     this.parameterValue = getParameter.getResponseField('Parameter.Value');
 
-    if (this.parameterValue !== undefined && this.parameterValue !== null) {
-      new custom.AwsCustomResource(this, 'PutParameter', {
-        onUpdate: {
-          service: 'SSM',
-          action: 'putParameter',
-          parameters: {
-            Name: props.parameterName,
-            Value: props.defaultValue || '',
-            Type: props.type || SSMParameterType.String,
-          },
-          physicalResourceId: custom.PhysicalResourceId.of(Date.now().toString()),
-        },
-        policy: custom.AwsCustomResourcePolicy.fromSdkCalls({ resources: custom.AwsCustomResourcePolicy.ANY_RESOURCE }),
-      });
-    }
+    // if (this.parameterValue !== undefined && this.parameterValue !== null) {
+    //   new custom.AwsCustomResource(this, 'PutParameter', {
+    //     onUpdate: {
+    //       service: 'SSM',
+    //       action: 'putParameter',
+    //       parameters: {
+    //         Name: props.parameterName,
+    //         Value: props.defaultValue || '',
+    //         Type: props.type || SSMParameterType.String,
+    //       },
+    //       physicalResourceId: custom.PhysicalResourceId.of(Date.now().toString()),
+    //     },
+    //     policy: custom.AwsCustomResourcePolicy.fromSdkCalls({ resources: custom.AwsCustomResourcePolicy.ANY_RESOURCE }),
+    //   });
+    // }
 
     new cdk.CfnOutput(this, 'SSMParameterValue', {
       value: this.parameterValue,
