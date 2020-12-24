@@ -65,15 +65,6 @@ export class SSMParameter extends cdk.Construct {
       policy: custom.AwsCustomResourcePolicy.fromSdkCalls({ resources: custom.AwsCustomResourcePolicy.ANY_RESOURCE }),
     });
 
-    // const status = putParameter.getResponseField('Status');
-
-    // Use the value in another construct with
-    // console.log(`getParameter: ${getParameter}`);
-    // this.parameterValue = getParameter.getResponseField('Parameter.Value');
-    // this.parameterValue = putParameter.getResponseField('');
-    // console.log(`this.parameterValue: ${this.parameterValue}`);
-
-    // if (this.parameterValue !== undefined && this.parameterValue !== null) {
     const getParameter = new custom.AwsCustomResource(this, 'GetParameter', {
       onUpdate: { // will also be called for a CREATE event
         service: 'SSM',
@@ -81,18 +72,15 @@ export class SSMParameter extends cdk.Construct {
         parameters: {
           Name: props.parameterName,
         },
-        // ignoreErrorCodesMatching: '400',
         physicalResourceId: custom.PhysicalResourceId.of(Date.now().toString()), // Update physical id to always fetch the latest version
       },
       policy: custom.AwsCustomResourcePolicy.fromStatements([new iam.PolicyStatement({
-        actions: ['*'],
-        // principals: [new iam.ServicePrincipal('lambda.amazonaws.com')],
+        actions: ['ssm:GetParameter'],
         resources: ['*'],
       })]),
       // policy: custom.AwsCustomResourcePolicy.fromSdkCalls({ resources: custom.AwsCustomResourcePolicy.ANY_RESOURCE }),
     });
     this.parameterValue = getParameter.getResponseField('Parameter.Value');
-    // }
 
     new cdk.CfnOutput(this, 'SSMParameterValue', {
       value: this.parameterValue,
