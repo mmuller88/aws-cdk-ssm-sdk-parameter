@@ -2,8 +2,8 @@
 
 Thats a little AWS CDK Construct for get the value of an SSM parameter. If the parameter doesn't exist, it will be created. The implementation simply leverages [AwsCustomResource](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_custom-resources.AwsCustomResource.html) as an SDK wrapper for:
 
-- https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ssm/get-parameter.html
-- https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ssm/put-parameter.html
+- https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ssm/get-parameter.html https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameter.html
+- https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ssm/put-parameter.html https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_PutParameter.html
 
 # Use Case
 
