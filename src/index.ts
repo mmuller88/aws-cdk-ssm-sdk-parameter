@@ -12,6 +12,11 @@ export interface SSMParameterProps {
    * The SSM Parameter type. SecureString is atm not supported
    */
   type?: SSMParameterType;
+  /**
+   * Optional parameter for deleting the SSM Parameter if the stack gets deleted.
+   * @default false
+   */
+  delete?: boolean;
 }
 
 /**
@@ -105,6 +110,27 @@ export class SSMParameter extends cdk.Construct {
     this.parameterValue = getParameter.getResponseField('Parameter.Value');
     // Run the get ssm parameter after put parameter
     getParameter.node.addDependency(putParameter);
+
+    if (props.delete) {
+      new custom.AwsCustomResource(this, 'DeleteParameter', {
+        onDelete: { // will also be called for a CREATE event
+          service: 'SSM',
+          action: 'deleteParameter',
+          parameters: {
+            Name: props.parameterName,
+          },
+          physicalResourceId: custom.PhysicalResourceId.of(Date.now().toString()),
+        },
+        role: new iam.Role(this, 'deleteParameterRole', {
+          assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
+          managedPolicies: [
+            iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSLambdaBasicExecutionRole'),
+            iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMFullAccess'),
+          ],
+        }),
+        policy: custom.AwsCustomResourcePolicy.fromSdkCalls({ resources: custom.AwsCustomResourcePolicy.ANY_RESOURCE }),
+      });
+    }
 
     new cdk.CfnOutput(this, 'SSMParameterValue', {
       value: this.parameterValue,
