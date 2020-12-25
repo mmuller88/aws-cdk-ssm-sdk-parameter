@@ -49,7 +49,7 @@ export class SSMParameter extends cdk.Construct {
 
     this.parameterName = props.parameterName;
 
-    new custom.AwsCustomResource(this, 'PutParameter', {
+    const putParameter = new custom.AwsCustomResource(this, 'PutParameter', {
       onUpdate: {
         service: 'SSM',
         action: 'putParameter',
@@ -62,6 +62,19 @@ export class SSMParameter extends cdk.Construct {
         ignoreErrorCodesMatching: '.*',
         physicalResourceId: custom.PhysicalResourceId.of(Date.now().toString()),
       },
+      role: new iam.Role(this, 'putParameterRole', {
+        assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
+        managedPolicies: [
+          iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSLambdaBasicExecutionRole'),
+          iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMFullAccess'),
+          // iam.ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess'),
+        ],
+      }),
+      // policy: custom.AwsCustomResourcePolicy.fromStatements([new iam.PolicyStatement({
+      //   actions: ['*'],
+      //   // resources: [`arn:aws:ssm:${parent.region}:${parent.account}:parameter/${props.parameterName}`],
+      //   resources: ['*'],
+      // })]),
       policy: custom.AwsCustomResourcePolicy.fromSdkCalls({ resources: custom.AwsCustomResourcePolicy.ANY_RESOURCE }),
     });
 
@@ -74,13 +87,24 @@ export class SSMParameter extends cdk.Construct {
         },
         physicalResourceId: custom.PhysicalResourceId.of(Date.now().toString()), // Update physical id to always fetch the latest version
       },
-      policy: custom.AwsCustomResourcePolicy.fromStatements([new iam.PolicyStatement({
-        actions: ['ssm:GetParameter'],
-        resources: ['*'],
-      })]),
-      // policy: custom.AwsCustomResourcePolicy.fromSdkCalls({ resources: custom.AwsCustomResourcePolicy.ANY_RESOURCE }),
+      role: new iam.Role(this, 'getParameterRole', {
+        assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
+        managedPolicies: [
+          iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSLambdaBasicExecutionRole'),
+          iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMReadOnlyAccess'),
+          // iam.ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess'),
+        ],
+      }),
+      // policy: custom.AwsCustomResourcePolicy.fromStatements([new iam.PolicyStatement({
+      //   actions: ['*'],
+      //   // resources: [`arn:aws:ssm:${parent.region}:${parent.account}:parameter/${props.parameterName}`],
+      //   resources: ['*'],
+      // })]),
+      policy: custom.AwsCustomResourcePolicy.fromSdkCalls({ resources: custom.AwsCustomResourcePolicy.ANY_RESOURCE }),
     });
     this.parameterValue = getParameter.getResponseField('Parameter.Value');
+    // Run the get ssm parameter after put parameter
+    getParameter.node.addDependency(putParameter);
 
     new cdk.CfnOutput(this, 'SSMParameterValue', {
       value: this.parameterValue,

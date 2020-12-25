@@ -1,9 +1,16 @@
 # aws-cdk-ssm-parameter
 
-Thats a little AWS CDK Construct for get the value of an SSM parameter. If the parameter doesn't exist, it will be created. The implementation simply leverages [AwsCustomResource](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_custom-resources.AwsCustomResource.html) as an SDK wrapper for:
+Thats an AWS CDK Construct for get and set the value of an SSM parameter. It is designed to be loose coupled and be not managed through AWS CDK / Cloudformation so that the SSM parameter can exist across different stacks and be updated without causing a drift. The looseness is reached through using CFN Custom Resources.
+
+The implementation simply leverages [AwsCustomResource](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_custom-resources.AwsCustomResource.html) as an SDK wrapper for:
 
 - https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ssm/get-parameter.html https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameter.html
 - https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ssm/put-parameter.html https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_PutParameter.html
+
+# Features
+
+- If the parameter doesn't exist, it will be created. Otherwise it pulls the current value of the parameter
+- optional delete
 
 # Use Case
 
@@ -14,11 +21,17 @@ SSM StringParameter APP_VERSION of an image is used across ECS deployments. New 
 # Example
 
 ```ts
-const stack = new cdk.Stack(app, 'my-demo-stack', { env });
+const stack = new cdk.Stack(app, 'ssm-demo-stack', { env });
 
 new SSMParameter(stack, 'SSMParameter', {
-  parameterName: 'foo',
+  parameterName: 'fooString',
   defaultValue: 'fooValue',
+});
+
+new SSMParameter(stack, 'SSMParameter', {
+  parameterName: 'fooStringList',
+  defaultValue: 'fooValue1,fooValue2,fooValue3',
+  type: SSMParameterType.StringList,
 });
 ```
 
