@@ -73,7 +73,9 @@
   "keywords": [
     "aws",
     "cdk",
+    "custom-resource",
     "parameter",
+    "sdk",
     "ssm"
   ],
   "main": "lib/index.js",

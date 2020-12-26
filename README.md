@@ -1,3 +1,8 @@
+[![NPM version](https://badge.fury.io/js/aws-cdk-ssm-sdk-parameter.svg)](https://badge.fury.io/js/aws-cdk-ssm-sdk-parameter)
+[![PyPI version](https://badge.fury.io/py/aws-cdk-ssm-sdk-parameter.svg)](https://badge.fury.io/py/aws-cdk-ssm-sdk-parameter)
+
+![Release](https://github.com/mmuller88/aws-cdk-ssm-sdk-parameter/workflows/Release/badge.svg)
+
 # aws-cdk-ssm-sdk-parameter
 
 Thats an AWS CDK Construct for get and set the value of an SSM parameter. It is designed to be loose coupled and be not managed through AWS CDK / Cloudformation so that the SSM parameter can exist across different stacks and be updated without causing a drift. The looseness is reached through using CFN Custom Resources.
