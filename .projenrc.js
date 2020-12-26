@@ -6,8 +6,8 @@ const project = new AwsCdkConstructLibrary({
   // defaultReleaseBranch: 'main',
   cdkVersion: '1.80.0',
   // releaseBranches: ['main'],
-  name: 'aws-cdk-ssm-parameter',
-  repository: 'https://github.com/mmuller88/aws-cdk-ssm-parameter',
+  name: 'aws-cdk-ssm-sdk-parameter',
+  repository: 'https://github.com/mmuller88/aws-cdk-ssm-sdk-parameter',
   cdkDependencies: [
     '@aws-cdk/core',
     '@aws-cdk/cloud-assembly-schema',
@@ -25,8 +25,8 @@ const project = new AwsCdkConstructLibrary({
     'sdk',
   ],
   python: {
-    distName: 'aws-cdk-ssm-parameter',
-    module: 'aws_cdk_ssm_parameter',
+    distName: 'aws-cdk-ssm-sdk-parameter',
+    module: 'aws_cdk_ssm_sdk_parameter',
   },
 });
 

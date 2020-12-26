@@ -1,8 +1,8 @@
 {
-  "name": "aws-cdk-ssm-parameter",
+  "name": "aws-cdk-ssm-sdk-parameter",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mmuller88/aws-cdk-ssm-parameter"
+    "url": "https://github.com/mmuller88/aws-cdk-ssm-sdk-parameter"
   },
   "bin": {},
   "scripts": {
@@ -117,8 +117,8 @@
     "outdir": "dist",
     "targets": {
       "python": {
-        "distName": "aws-cdk-ssm-parameter",
-        "module": "aws_cdk_ssm_parameter"
+        "distName": "aws-cdk-ssm-sdk-parameter",
+        "module": "aws_cdk_ssm_sdk_parameter"
       }
     },
     "tsc": {
