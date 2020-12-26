@@ -46,12 +46,6 @@ export class SSMParameter extends cdk.Construct {
       throw new Error('Name cannot be longer than 2048 characters.');
     }
 
-    // if (props.type === SSMParameterType.StringList) {
-    //   if ( props.defaultValue.split(',').find(str => str.indexOf(',') !== -1)) {
-    //     throw new Error('Values of a StringList SSM Parameter cannot contain the \',\' character. Use a string parameter instead.');
-    //   }
-    // }
-
     this.parameterName = props.parameterName;
 
     const putParameter = new custom.AwsCustomResource(this, 'PutParameter', {
@@ -72,14 +66,8 @@ export class SSMParameter extends cdk.Construct {
         managedPolicies: [
           iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSLambdaBasicExecutionRole'),
           iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMFullAccess'),
-          // iam.ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess'),
         ],
       }),
-      // policy: custom.AwsCustomResourcePolicy.fromStatements([new iam.PolicyStatement({
-      //   actions: ['*'],
-      //   // resources: [`arn:aws:ssm:${parent.region}:${parent.account}:parameter/${props.parameterName}`],
-      //   resources: ['*'],
-      // })]),
       policy: custom.AwsCustomResourcePolicy.fromSdkCalls({ resources: custom.AwsCustomResourcePolicy.ANY_RESOURCE }),
     });
 
@@ -97,14 +85,8 @@ export class SSMParameter extends cdk.Construct {
         managedPolicies: [
           iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSLambdaBasicExecutionRole'),
           iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMReadOnlyAccess'),
-          // iam.ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess'),
         ],
       }),
-      // policy: custom.AwsCustomResourcePolicy.fromStatements([new iam.PolicyStatement({
-      //   actions: ['*'],
-      //   // resources: [`arn:aws:ssm:${parent.region}:${parent.account}:parameter/${props.parameterName}`],
-      //   resources: ['*'],
-      // })]),
       policy: custom.AwsCustomResourcePolicy.fromSdkCalls({ resources: custom.AwsCustomResourcePolicy.ANY_RESOURCE }),
     });
     this.parameterValue = getParameter.getResponseField('Parameter.Value');
@@ -113,7 +95,7 @@ export class SSMParameter extends cdk.Construct {
 
     if (props.delete) {
       new custom.AwsCustomResource(this, 'DeleteParameter', {
-        onDelete: { // will also be called for a CREATE event
+        onDelete: {
           service: 'SSM',
           action: 'deleteParameter',
           parameters: {
