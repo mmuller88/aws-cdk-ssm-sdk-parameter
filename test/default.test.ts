@@ -52,7 +52,7 @@ describe('Get', () => {
         });
 
         test('with delete property', () => {
-          const paramTmp = new SSMParameter(stack, 'SSMParameterString2', {
+          const paramTmp = new SSMParameter(stack, 'SSMParameterString3', {
             parameterName: 'fooValue',
             defaultValue: 'fooValue',
             delete: true,
