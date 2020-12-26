@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.6 (2020-12-26)
+
+
+### Features
+
+* adjust ignores ([58071f9](https://github.com/mmuller88/aws-cdk-ssm-sdk-parameter/commit/58071f9a758e40cc090b2dea2054aa3aa6af9760))
+
 ### 0.0.5 (2020-12-26)
 
 ### 0.0.4 (2020-12-26)
