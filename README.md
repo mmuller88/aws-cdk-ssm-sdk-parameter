@@ -10,7 +10,7 @@ The implementation simply leverages [AwsCustomResource](https://docs.aws.amazon.
 
 # Features
 
-- If the parameter doesn't exist, it will be created. Otherwise it pulls the current value of the parameter
+- If the parameter doesn't exist, it will be created. Otherwise it pulls the current value of the parameter.
 - optional delete when destroying the stack
 
 # Use Case
