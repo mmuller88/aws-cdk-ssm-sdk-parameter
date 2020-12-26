@@ -1,6 +1,5 @@
 [![NPM version](https://badge.fury.io/js/aws-cdk-ssm-sdk-parameter.svg)](https://badge.fury.io/js/aws-cdk-ssm-sdk-parameter)
 [![PyPI version](https://badge.fury.io/py/aws-cdk-ssm-sdk-parameter.svg)](https://badge.fury.io/py/aws-cdk-ssm-sdk-parameter)
-
 ![Release](https://github.com/mmuller88/aws-cdk-ssm-sdk-parameter/workflows/Release/badge.svg)
 
 # aws-cdk-ssm-sdk-parameter
