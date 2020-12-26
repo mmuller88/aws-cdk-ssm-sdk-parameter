@@ -23,7 +23,7 @@ export class IntegTesting {
     new SSMParameter(stack, 'SSMParameterStringList', {
       parameterName: 'fooStringList',
       defaultValue: 'fooValue1,fooValue2,fooValue3',
-      type: SSMParameterType.StringList,
+      type: SSMParameterType.STRING_LIST,
     });
 
     // Delete the SSM Parameter if the stack gets deleted

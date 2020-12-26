@@ -3,28 +3,28 @@ import * as cdk from '@aws-cdk/core';
 import * as custom from '@aws-cdk/custom-resources';
 
 export interface SSMParameterProps {
-  parameterName: string;
+  readonly parameterName: string;
   /**
    * if the parameter couldn't be found that will be the default value
    */
-  defaultValue?: string;
+  readonly defaultValue?: string;
   /**
    * The SSM Parameter type. SecureString is atm not supported
    */
-  type?: SSMParameterType;
+  readonly type?: SSMParameterType;
   /**
    * Optional parameter for deleting the SSM Parameter if the stack gets deleted.
    * @default false
    */
-  delete?: boolean;
+  readonly delete?: boolean;
 }
 
 /**
  * The SSM Parameter type. SecureString is atm not supported
  */
 export enum SSMParameterType {
-  String = 'String',
-  StringList = 'StringList',
+  STRING = 'String',
+  STRING_LIST = 'StringList',
 }
 
 export class SSMParameter extends cdk.Construct {
@@ -61,7 +61,7 @@ export class SSMParameter extends cdk.Construct {
         parameters: {
           Name: props.parameterName,
           Value: props.defaultValue || '',
-          Type: props.type || SSMParameterType.String,
+          Type: props.type || SSMParameterType.STRING,
         },
         // ignore if ParameterAlreadyExists as we don't override anyway
         ignoreErrorCodesMatching: '.*',

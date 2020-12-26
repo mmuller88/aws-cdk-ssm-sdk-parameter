@@ -45,6 +45,14 @@ new SSMParameter(stack, 'SSMParameterWithDelete', {
 });
 ```
 
+# Local Testing
+
+For local testing simply run
+
+```
+yarn deploy --profile X
+```
+
 # Limitation
 
 - SSM SecureString Parameter are not supported

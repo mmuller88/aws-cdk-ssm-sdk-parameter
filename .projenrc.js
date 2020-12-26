@@ -21,6 +21,8 @@ const project = new AwsCdkConstructLibrary({
     'aws',
     'ssm',
     'parameter',
+    'custom-resource',
+    'sdk',
   ],
   python: {
     distName: 'aws-cdk-ssm-parameter',

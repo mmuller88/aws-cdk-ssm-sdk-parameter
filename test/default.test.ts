@@ -92,7 +92,7 @@ describe('Get', () => {
         const param = new SSMParameter(stack, 'SSMParameterStringList', {
           parameterName: 'fooStringList',
           defaultValue: 'fooValue1,fooValue2,fooValue3',
-          type: SSMParameterType.StringList,
+          type: SSMParameterType.STRING_LIST,
         });
 
         test('which exist', () => {
