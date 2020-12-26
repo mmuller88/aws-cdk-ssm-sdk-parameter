@@ -14,10 +14,6 @@ dist
 /tsconfig.jest.json
 /.eslintrc.json
 cdk.out
-cdk.context.json
-images
-yarn-error.log
-tmp
 !/lib
 !/lib/**/*.js
 !/lib/**/*.d.ts

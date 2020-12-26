@@ -33,7 +33,7 @@ const project = new AwsCdkConstructLibrary({
 // workaround for https://github.com/projen/projen/issues/356
 project.setScript('deploy', 'cdk deploy');
 
-const common_exclude = ['cdk.out', 'cdk.context.json', 'images', 'yarn-error.log', 'tmp'];
+const common_exclude = ['cdk.out'];
 project.npmignore.exclude(...common_exclude);
 project.gitignore.exclude(...common_exclude);
 
