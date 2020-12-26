@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.2 (2020-12-26)
+
+
+### Features
+
+* release to npm and pypi ([e84576b](https://github.com/mmuller88/aws-cdk-ssm-parameter/commit/e84576b4c8b61e765f5e6f9f4006e620907b11e0))
+
 ### 0.0.1 (2020-12-26)
 
 
