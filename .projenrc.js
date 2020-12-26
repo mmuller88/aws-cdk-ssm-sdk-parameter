@@ -3,9 +3,9 @@ const { AwsCdkConstructLibrary } = require('projen');
 const project = new AwsCdkConstructLibrary({
   authorAddress: 'damadden88@googlemail.de',
   authorName: 'martin.mueller',
-  defaultReleaseBranch: 'main',
+  // defaultReleaseBranch: 'main',
   cdkVersion: '1.80.0',
-  releaseBranches: ['main'],
+  // releaseBranches: ['main'],
   name: 'aws-cdk-ssm-parameter',
   repository: 'https://github.com/mmuller88/aws-cdk-ssm-parameter',
   cdkDependencies: [
