@@ -29,6 +29,7 @@ const project = new AwsCdkConstructLibrary({
 });
 
 project.setScript('deploy', 'cdk deploy');
+project.setScript('destroy', 'cdk destroy');
 
 const common_exclude = ['cdk.out'];
 project.npmignore.exclude(...common_exclude);

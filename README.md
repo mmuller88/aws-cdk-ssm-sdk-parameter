@@ -57,6 +57,12 @@ For local testing simply run
 yarn deploy --profile X
 ```
 
+For destroying use
+
+```
+yarn destroy --profile X
+```
+
 # Limitation
 
 - SSM SecureString Parameter are not supported
