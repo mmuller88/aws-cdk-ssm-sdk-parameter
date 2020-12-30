@@ -51,24 +51,6 @@ describe('Get', () => {
           expect(stack).toHaveResource('Custom::AWS');
         });
 
-        test('with delete property', () => {
-          const paramTmp = new SSMParameter(stack, 'SSMParameterString3', {
-            parameterName: 'fooValue',
-            defaultValue: 'fooValue',
-            delete: true,
-          });
-
-          expect(paramTmp.parameterValue).toContain('TOKEN');
-          expect(stack).toHaveResourceLike('Custom::AWS', {
-            Delete: {
-              action: 'deleteParameter',
-              parameters: {
-                Name: 'fooValue',
-              },
-            },
-          });
-        });
-
         describe('fails', () => {
           test('with empty parameterName', () => {
             expect(() => {
