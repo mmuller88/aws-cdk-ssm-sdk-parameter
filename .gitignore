@@ -24,7 +24,6 @@ coverage
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
 # Dependency directories
-node_modules/
 jspm_packages/
 # TypeScript cache
 *.tsbuildinfo
@@ -46,9 +45,10 @@ junit.xml
 tsconfig.json
 cdk.out
 !/.projen/tasks.json
+!/.projen/deps.json
 !/package.json
-!/.npmignore
 !/LICENSE
+!/.npmignore
 !/.projenrc.js
 !version.json
 !/.versionrc.json
