@@ -114,12 +114,7 @@
   "stability": "stable",
   "jsii": {
     "outdir": "dist",
-    "targets": {
-      "python": {
-        "distName": "aws-cdk-ssm-sdk-parameter",
-        "module": "aws_cdk_ssm_sdk_parameter"
-      }
-    },
+    "targets": {},
     "tsc": {
       "outDir": "lib",
       "rootDir": "src"

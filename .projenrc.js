@@ -22,10 +22,6 @@ const project = new AwsCdkConstructLibrary({
     'custom-resource',
     'sdk',
   ],
-  python: {
-    distName: 'aws-cdk-ssm-sdk-parameter',
-    module: 'aws_cdk_ssm_sdk_parameter',
-  },
 });
 
 const common_exclude = ['cdk.out'];
