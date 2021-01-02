@@ -6,10 +6,6 @@ const project = new AwsCdkConstructLibrary({
   cdkVersion: '1.80.0',
   name: 'aws-cdk-ssm-sdk-parameter',
   repository: 'https://github.com/mmuller88/aws-cdk-ssm-sdk-parameter',
-  cdkDependencies: [
-    '@aws-cdk/core',
-    '@aws-cdk/custom-resources',
-  ],
   keywords: [
     'cdk',
     'aws',

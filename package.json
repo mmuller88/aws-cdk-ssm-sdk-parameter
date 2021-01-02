@@ -52,14 +52,9 @@
     "typescript": "^3.9.5"
   },
   "peerDependencies": {
-    "@aws-cdk/core": "^1.80.0",
-    "@aws-cdk/custom-resources": "^1.80.0",
     "constructs": "^3.2.27"
   },
-  "dependencies": {
-    "@aws-cdk/core": "^1.80.0",
-    "@aws-cdk/custom-resources": "^1.80.0"
-  },
+  "dependencies": {},
   "bundledDependencies": [],
   "keywords": [
     "aws",
