@@ -42,7 +42,7 @@
     "@aws-cdk/core" "1.80.0"
     constructs "^3.2.0"
 
-"@aws-cdk/aws-cloudformation@1.80.0", "@aws-cdk/aws-cloudformation@^1.80.0":
+"@aws-cdk/aws-cloudformation@1.80.0":
   version "1.80.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-cloudformation/-/aws-cloudformation-1.80.0.tgz#28834cb2063509e4a7ccfd42d84ae24dbcae4bf6"
   integrity sha512-961ysL/EvxLt9Gtb1D1BEseP0X6ChgAVnH2fU1iWaLDS+vplEzQkQK3Web8haJ64LxZo8CJokTTCE4ejWIl5nw==
@@ -136,7 +136,7 @@
     "@aws-cdk/core" "1.80.0"
     constructs "^3.2.0"
 
-"@aws-cdk/aws-iam@1.80.0", "@aws-cdk/aws-iam@^1.80.0":
+"@aws-cdk/aws-iam@1.80.0":
   version "1.80.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-iam/-/aws-iam-1.80.0.tgz#54ca79aea35f9d72056eef1b5c77078c1c7f99da"
   integrity sha512-/DjB4b4wPVOc8v1IdvGB+ZCNtxcYh6pdt6xJqAJfZj1349ZEDp/bei+Sx18UNW3/eCckhQk29Ys7bMmX0VkzTg==
@@ -155,7 +155,7 @@
     "@aws-cdk/cx-api" "1.80.0"
     constructs "^3.2.0"
 
-"@aws-cdk/aws-lambda@1.80.0", "@aws-cdk/aws-lambda@^1.80.0":
+"@aws-cdk/aws-lambda@1.80.0":
   version "1.80.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-lambda/-/aws-lambda-1.80.0.tgz#a7c8e4e5b6411d1e4281f7c3ec9d99bf66b365fd"
   integrity sha512-mAmIi2hFMe+X4Z4kfq1JwJTo18djIsf9N6ES0DOpsqivuDn2NRKwbTDB2U2qa+vZV4zOzFPHtcqJ+NYVaHxbjA==
@@ -256,7 +256,7 @@
   dependencies:
     md5 "^2.3.0"
 
-"@aws-cdk/cloud-assembly-schema@1.80.0", "@aws-cdk/cloud-assembly-schema@^1.80.0":
+"@aws-cdk/cloud-assembly-schema@1.80.0":
   version "1.80.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/cloud-assembly-schema/-/cloud-assembly-schema-1.80.0.tgz#1c431ea744a0527468fb63cd4b30ec8ac7b71b1c"
   integrity sha512-DabdtYfsQDye+MjboPMPz6hqh5sNxi9l62lrYdC42wbcY30b0ZAMdDB/nawqQTu2o4eUEk5XlGm2QLkWN15Elg==
