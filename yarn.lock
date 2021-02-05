@@ -3975,9 +3975,9 @@ jsii-reflect@^1.16.0, jsii-reflect@^1.9.0:
     yargs "^16.1.1"
 
 jsii-release@^0.2.8:
-  version "0.2.9"
-  resolved "https://registry.yarnpkg.com/jsii-release/-/jsii-release-0.2.9.tgz#4fa47f6cacced985837bba4eb85dec55b4b02235"
-  integrity sha512-KVwLCDUzqt1sLkLY3Y7pqr0wgsQk+uM80182dyFhbk37l1KRMR8AUe5k3aNYPlmrweRthQq/54RnEDemaqUOyA==
+  version "0.2.16"
+  resolved "https://registry.yarnpkg.com/jsii-release/-/jsii-release-0.2.16.tgz#45e4269eb55d56c9a55bda834289b7367d2dd2f6"
+  integrity sha512-PJoOYBm8qKugtDOMUeGmZ0214SCCCutkBaKWWMPA6+GIb98ubtP7y/YUueENjk/p7+JZo5lmE8CtC/lS5Xi4Tg==
 
 jsii-rosetta@^1.16.0:
   version "1.16.0"
